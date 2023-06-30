@@ -1,12 +1,13 @@
 br\jus\trt12\paulopinheiro\jxmlviewer\JXMLViewer.class
+br\jus\trt12\paulopinheiro\jxmlviewer\JXMLViewer$1.class
+br\jus\trt12\paulopinheiro\jxmlviewer\model\jtable\XMLElementTableModel.class
+br\jus\trt12\paulopinheiro\jxmlviewer\JXMLViewer$4.class
+br\jus\trt12\paulopinheiro\jxmlviewer\model\observables\ObservableObject.class
 br\jus\trt12\paulopinheiro\jxmlviewer\model\observers\ElementObserver.class
 br\jus\trt12\paulopinheiro\jxmlviewer\model\jtree\XMLTreeNode.class
 br\jus\trt12\paulopinheiro\jxmlviewer\model\observables\ObservableDocument.class
-br\jus\trt12\paulopinheiro\jxmlviewer\JXMLViewer$1.class
-br\jus\trt12\paulopinheiro\jxmlviewer\model\jtable\XMLElementTableModel.class
 br\jus\trt12\paulopinheiro\jxmlviewer\JXMLViewer$3.class
 br\jus\trt12\paulopinheiro\jxmlviewer\model\jtree\XmlTreeModel.class
-br\jus\trt12\paulopinheiro\jxmlviewer\JXMLViewer$4.class
 br\jus\trt12\paulopinheiro\jxmlviewer\JXMLViewer$2.class
 br\jus\trt12\paulopinheiro\jxmlviewer\model\observables\ObservableElement.class
 br\jus\trt12\paulopinheiro\jxmlviewer\model\observers\DocumentObserver.class
