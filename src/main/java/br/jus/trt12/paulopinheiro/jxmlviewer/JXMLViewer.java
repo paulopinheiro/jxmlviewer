@@ -9,11 +9,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
+import org.xml.sax.SAXParseException;
 
 public class JXMLViewer extends javax.swing.JFrame {
     private ObservableDocument obDocument;
@@ -32,8 +36,16 @@ public class JXMLViewer extends javax.swing.JFrame {
             File arquivo = new File(absolutePath);
             Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(arquivo);
             setDocument(document);
-        } catch (IOException | SAXException | ParserConfigurationException ex) {
+        } catch (IOException ex ){
+            JOptionPane.showMessageDialog(rootPane, ex.getLocalizedMessage(), "Há um problema com o arquivo selecionado", JOptionPane.ERROR_MESSAGE);
+        } catch (SAXParseException ex ){
+            JOptionPane.showMessageDialog(rootPane, ex.getLocalizedMessage(), "Há um problema com a sintaxe do arquivo XML", JOptionPane.ERROR_MESSAGE);
+        } catch (SAXException ex ){
+            JOptionPane.showMessageDialog(rootPane, ex.getLocalizedMessage(), "Há um problema com o conteúdo do arquivo XML", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(JXMLViewer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParserConfigurationException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getLocalizedMessage(), "Ocorreu um erro de sistema", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(JXMLViewer.class.getName()).log(Level.SEVERE, null, ex);            
         }
     }
 
@@ -114,9 +126,11 @@ public class JXMLViewer extends javax.swing.JFrame {
             .addGroup(jpnElementLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpnElementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlbElement))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jpnElementLayout.createSequentialGroup()
+                        .addComponent(jlbElement)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jpnElementLayout.setVerticalGroup(
             jpnElementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,15 +149,15 @@ public class JXMLViewer extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jpnElement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jbtXMLFile)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jtfXMLPath, javax.swing.GroupLayout.DEFAULT_SIZE, 769, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtXMLRead)))
+                        .addComponent(jbtXMLRead))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jpnElement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
