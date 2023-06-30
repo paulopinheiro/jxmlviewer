@@ -1,10 +1,9 @@
 package br.jus.trt12.paulopinheiro.jxmlviewer;
 
 import br.jus.trt12.paulopinheiro.jxmlviewer.model.jtree.XMLTreeNode;
-import br.jus.trt12.paulopinheiro.jxmlviewer.model.observables.ObservableDocument;
-import br.jus.trt12.paulopinheiro.jxmlviewer.model.observables.ObservableElement;
 import br.jus.trt12.paulopinheiro.jxmlviewer.model.observers.DocumentObserver;
 import br.jus.trt12.paulopinheiro.jxmlviewer.model.observers.ElementObserver;
+import br.jus.trt12.paulopinheiro.jxmlviewer.model.observables.ObservableObject;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -18,8 +17,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 public class JXMLViewer extends javax.swing.JFrame {
-    private ObservableDocument obDocument;
-    private ObservableElement obElement;
+    private ObservableObject obDocument;
+    private ObservableObject obElement;
     private DocumentObserver docObserver;
     private ElementObserver eleObserver;
 
@@ -48,11 +47,11 @@ public class JXMLViewer extends javax.swing.JFrame {
     }
 
     private void setDocument(Document document) {
-        this.obDocument.setDocument(document);
+        this.obDocument.setObject(document);
     }
 
     private void setElement(Element element) {
-        this.obElement.setElement(element);
+        this.obElement.setObject(element);
     }
 
     /**
@@ -198,11 +197,11 @@ public class JXMLViewer extends javax.swing.JFrame {
     }
 
     private void initObsComponents() {
-        this.obDocument = new ObservableDocument();
+        this.obDocument = new ObservableObject("document");
         this.docObserver = new DocumentObserver(this.jtrArvore);
         this.obDocument.addObserver(this.docObserver);
 
-        this.obElement = new ObservableElement();
+        this.obElement = new ObservableObject("element");
         this.eleObserver = new ElementObserver(this.jlbElement, this.jtbElement);
         this.obElement.addObserver(eleObserver);
     }
@@ -223,19 +222,16 @@ public class JXMLViewer extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JXMLViewer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JXMLViewer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JXMLViewer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(JXMLViewer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new JXMLViewer().setVisible(true);
             }
