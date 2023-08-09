@@ -48,6 +48,7 @@ public class JXMLViewer extends javax.swing.JFrame {
 
     private void setDocument(Document document) {
         this.obDocument.setObject(document);
+        setElement(null);
     }
 
     private void setElement(Element element) {
